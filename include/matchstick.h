@@ -11,6 +11,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <time.h>
 
 # include "my.h"
 
@@ -32,6 +33,7 @@ map_t 		*initialize_map(int lines, int matches);
 
 // managers/map_manager.c
 char 		**create_map(int lines, int max_sticks);
+void 		display_characters(int i, int j, map_t *map);
 void 		display_map(map_t *map);
 
 # endif

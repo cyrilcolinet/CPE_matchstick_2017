@@ -21,6 +21,8 @@ int display_help(char *bin)
 
 int matchstick(map_t *map)
 {
+	srand(time(NULL));
+	display_map(map);
 	free_all(map);
 	return (0);
 }

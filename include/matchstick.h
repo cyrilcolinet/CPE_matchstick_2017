@@ -14,6 +14,14 @@
 
 # include "my.h"
 
+typedef struct map_t {
+	char 	**get;
+	int 	lines;
+	int 	max_sticks;
+	int		max_matches;
+	int 	status;
+}	map_t;
+
 int 		matchstick_main(int ac, char **av);
 
 # endif

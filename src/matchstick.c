@@ -9,5 +9,7 @@
 
 int matchstick_main(int ac, char **av)
 {
-	return (0);
+	int lines = 0;
+	int matches = 0
+	int status = 0;
 }

@@ -1,123 +1,100 @@
 ##
-## EPITECH PROJECT, 2017
-## {CHANGE_IT}
+## EPITECH PROJECT, 2018
+## CPE_matchstick_2017
 ## File description:
-## Makefile with build project rule and units tests
+## Matchstrick project
 ##
 
-## Global variables
 
-SUCCESS						= /bin/echo -e "\x1b[1m\x1b[33m\#\#\x1b[32m $1\x1b[0m"
+## VARIABLES
 
-INFO						= /bin/echo -e "\x1b[1m\x1b[33m\#\#\x1b[34m $1\x1b[0m"
+NAME					= 	matchstick
 
-HOST						= $(shell printenv HOME)
+UNITS 					= 	units
 
-DEBUG 						= $(if $(filter /home/cyrilcolinet, $(HOST)), -g3, )
+SRC_DIR 				= 	src/
 
-COMPILE_LIBRARY 			= $(shell [ -e $(LIBDIR) ] && echo -e "ok" || echo -e "no")
+TEST_DIR				= 	tests/
 
-## Compilation variables
+SRC_FILES				= 	main.c 								\
+							matchstick.c
 
-NAME 						= {CHANGE_IT}
+SRC						= 	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
-UNIT 						= units
+TESTS_FILES				=	$(filter-out main.c, $(SRC_FILES))
 
-SRCDIR 						= src/
+TESTS_FILES				+=	""
 
-TESTSDIR 					= tests/
+INCLUDE					= 	include/
 
-SRCNAMES 					= main.c
+LIBRARY_DIR				= 	lib/
 
-SRC 						= $(addprefix $(SRCDIR), $(SRCNAMES))
+CC						=	gcc
 
-SRCTESTS					= $(filter-out src/main.c, $(SRC)) 	\
-							  tests/{CHANGE_IT}_tests.c
+CFLAGS					= 	-Wall -Wextra -I $(INCLUDE) -g3
 
-INC 						= include
+LFLAGS					= 	-L $(LIBRARY_DIR) -lmy
 
-BUILDDIR 					= build/
+UNITS_LFLAGS			= 	$(LFLAGS) -lgcov -lcriterion
 
-BUILDTESTDIR 				= build_tests/
+## BUILD VARIABLES
 
-BUILDSUBDIR 				= $(shell find $(SRCDIR) -mindepth 1 -type d -printf '%p\n' | sed -e 's/^src\///')
+BUILD_DIR				= 	build/
 
-BUILDTESTSUBDIR 			= $(shell find $(SRCDIR) -mindepth 1 -type d -printf '%p\n' | sed -e 's/^tests\///')
+BUILD_TESTS_DIR			= 	tests/build/
 
-BUILDOBJS 					= $(addprefix $(BUILDDIR), $(SRCNAMES:.c=.o))
+BUILD_OBJ				= 	$(addprefix $(BUILD_DIR), $(SRC_FILES:.c=.o))
 
-## Check
-BUILDTESTOBJS 				= $(addprefix $(BUILDTESTDIR), $(SRCTESTS:.c=.o)) 
+BUILD_TESTS_OBJ			= 	$(addprefix $(BUILD_TESTS_DIR), $(TESTS_FILES:.c=.o))
 
-LIBDIR 						= lib/
+BUILD_SD				= 	$(shell find $(SRC_DIR) -mindepth 1 -type d -printf '%p\n' | sed -e 's/^src\///')
 
-LIBMY 						= $(LIBDIR)libmy.a
+## RULES
 
-CC 							= gcc
+all:					library $(BUILD_DIR) $(NAME)
 
-CFLAGS 						= -Wall -Wextra -I$(INC) $(DEBUG)
+library:
+						make -C $(LIBRARY_DIR)
 
-LFLAGS		 				= $(if $(filter ok, $(COMPILE_LIBRARY)), -L$(LIBDIR) -lmy, )
+$(BUILD_DIR):
+						mkdir -p $(BUILD_DIR)
+						$(foreach SUB_DIR, $(BUILD_SD), $(shell mkdir -p $(BUILD_DIR)$(SUB_DIR)))
 
-UNITS_LIBRARY_FLAG 			= $(LFLAGS) -lgcov -lcriterion
+$(BUILD_DIR)%.o:		$(SRC_DIR)%.c
+						$(CC) $(CFLAGS)   -c -o $@ $<
 
-OBJ 						= $($SRC:.c=.o)
+$(NAME):				$(BUILD_OBJ)
+						$(CC) $(CFLAGS)   -o $(NAME) $(BUILD_OBJ) $(LFLAGS)
 
-## Rules
+tests_run:				fclean library $(UNITS)
+						find $(BUILD_TESTS_DIR) -name '*.gc*' -exec mv -t ./ {} +
+						./$(UNITS)
 
-all: 						$(BUILDDIR) $(LIBMY) $(NAME)
-							@$(call SUCCESS, "Project successfully compiled.")
-							@clear
+$(UNITS):				$(BUILD_TESTS_DIR) $(BUILD_TESTS_OBJ)
+						$(CC) $(CFLAGS)   -o $(UNITS) $(BUILD_TESTS_OBJ) --coverage $(UNITS_LFLAGS)
 
-tests_run: 					$(BUILDTESTDIR) $(LIBMY) $(UNIT)
-							@$(call SUCCESS, "Unitary tests successfully compiled.")
-							@clear
-							@echo -e "\n"
-							@$(call SUCCESS, "Execution of criterion tests...")
-							@./$(UNIT)
-							@$(call SUCCESS, "All tests passed !")
+$(BUILD_TESTS_DIR):
+						mkdir -p $(BUILD_TESTS_DIR)$(TEST_DIR)
+						$(foreach SUB_DIR, $(BUILD_SD), $(shell mkdir -p $(BUILD_TESTS_DIR)$(SUB_DIR)))
+
+$(BUILD_TESTS_DIR)%.o:	$(SRC_DIR)%.c
+						$(CC) $(CFLAGS) --coverage   -c -o $@ $<
+
+$(BUILD_TESTS_DIR)%.o:	$(TEST_DIR)%.c
+						$(CC) $(CFLAGS) --coverage   -c -o $@ $<
 
 clean:
-							rm -rf $(BUILDDIR)
-							rm -rf $(BUILDTESTDIR)
-							find -name '*.gc*' -delete -or -name 'vgcore.*' -delete
-							$(if $(filter ok, $(COMPILE_LIBRARY)), make clean -C $(LIBDIR), @$(call INFO, "No lib needed for this project."))
-							@$(call SUCCESS, "Project fully cleaned.")
+						rm -rf $(BUILD_DIR)
+						rm -rf $(BUILD_TESTS_DIR)
+						find -name '*.gc*' -delete -or -name 'vgcore.*' -delete -o -name '*.o' -delete
+						make clean -C $(LIBRARY_DIR)
 
-fclean: 					clean
-							rm -rf $(NAME)
-							$(if $(filter ok, $(COMPILE_LIBRARY)), make fclean -C $(LIBDIR), @$(call INFO, "No lib needed for this project."))
+fclean:					clean
+						rm -rf $(NAME)
+						rm -rf $(UNITS)
+						make fclean -C $(LIBRARY_DIR)
 
-re: 						fclean all
-
-$(BUILDDIR):
-							mkdir -p $(BUILDDIR)
-							$(foreach subdir, $(BUILDSUBDIR), $(shell mkdir -p $(BUILDDIR)$(subdir)))
-
-$(BUILDTESTDIR):
-							mkdir -p {$(BUILDTESTDIR)src,$(BUILDTESTDIR)tests}
-							$(foreach subdir, $(BUILDSUBDIR), $(shell mkdir -p $(BUILDTESTDIR)src/$(subdir)))
-							$(foreach subdir, $(BUILDTESTSUBDIR), $(shell mkdir -p $(BUILDTESTDIR)tests/$(subdir)))
-
-$(BUILDDIR)%.o:				$(SRCDIR)%.c
-							$(CC) $(CFLAGS)   -c -o $@ $<
-
-$(BUILDTESTDIR)src/%.o:		$(SRCDIR)%.c
-							$(CC) $(CFLAGS) --coverage   -c -o $@ $<
-
-$(BUILDTESTDIR)tests/%.o:	$(TESTSDIR)%.c
-							$(CC) $(CFLAGS) --coverage   -c -o $@ $<
-
-$(NAME): 					$(BUILDOBJS)
-							$(CC) $(CFLAGS) $(LFLAGS) -o $(NAME) $(BUILDOBJS) $(LIBDIR)/my/*.o
-							@$(call SUCCESS, "All objects files successfully regrouped in ./$(NAME) binary file.")
-
-$(LIBMY):
-							$(if $(filter ok, $(COMPILE_LIBRARY)), make -C $(LIBDIR), @$(call INFO, "No lib needed for this project."))
-
-$(UNIT): 					$(BUILDTESTOBJS)
-							$(CC) $(CFLAGS) $(UNITS_LIBRARY_FLAG) -o units $(BUILDTESTOBJS) $(LIBDIR)/my/*.o
-							@$(call SUCCESS, "All tests objects files successfully regrouped in ./$(NAME) binary file.")
+re:						fclean all
 
 # Just in case those files exist in the root dir
-.PHONY						: all fclean clean re tests_run
+.PHONY					: all library clean fclean re tests_run

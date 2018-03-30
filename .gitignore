@@ -58,3 +58,9 @@ dkms.conf
 
 # End of https://www.gitignore.io/api/c
 
+# Own project files
+build/
+build_tests/
+include/my.h
+matchstick
+units

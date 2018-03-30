@@ -30,4 +30,8 @@ int 		matchstick_main(int ac, char **av);
 void 		free_all(map_t *map);
 map_t 		*initialize_map(int lines, int matches);
 
+// managers/map_manager.c
+char 		**create_map(int lines, int max_sticks);
+void 		display_map(map_t *map);
+
 # endif

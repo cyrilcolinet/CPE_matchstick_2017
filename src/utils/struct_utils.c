@@ -26,7 +26,7 @@ map_t *initialize_map(int lines, int matches)
 
 	map->max_sticks = 1 + (lines - 1) * 2;
 	map->map = create_map(lines, map->max_sticks);
-	if (map->>map == NULL) {
+	if (map->map == NULL) {
 		free(map);
 		return (NULL);
 	}

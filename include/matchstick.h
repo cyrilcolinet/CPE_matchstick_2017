@@ -27,6 +27,7 @@ int 		matchstick(map_t *map);
 int 		matchstick_main(int ac, char **av);
 
 // utils/struct_utils.c
+void 		free_all(map_t *map);
 map_t 		*initialize_map(int lines, int matches);
 
 # endif

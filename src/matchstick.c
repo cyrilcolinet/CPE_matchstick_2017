@@ -14,6 +14,7 @@ int display_help(char *bin)
 
 int matchstick(map_t *map)
 {
+	free_all(map);
 	return (0);
 }
 

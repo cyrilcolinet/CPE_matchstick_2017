@@ -7,6 +7,16 @@
 
 # include "matchstick.h"
 
+void free_all(map_t *map)
+{
+	int i = 0;
+
+	for (i = 0; map->map[i] != NULL; i++)
+		free(map->map[i]);
+	free(map->map);
+	free(map);
+}
+
 map_t *initialize_map(int lines, int matches)
 {
 	map_t *map = malloc(sizeof(map_t));
@@ -20,4 +30,10 @@ map_t *initialize_map(int lines, int matches)
 		free(map);
 		return (NULL);
 	}
+
+	map->lines = lines;
+	map->max_matches = matches;
+	map->status = 0;
+
+	return (map);
 }

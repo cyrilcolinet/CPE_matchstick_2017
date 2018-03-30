@@ -18,7 +18,8 @@ TEST_DIR				= 	tests/
 
 SRC_FILES				= 	main.c 								\
 							matchstick.c 						\
-							utils/struct_utils.c
+							utils/struct_utils.c 				\
+							managers/map_manager.c
 
 SRC						= 	$(addprefix $(SRC_DIR), $(SRC_FILES))
 

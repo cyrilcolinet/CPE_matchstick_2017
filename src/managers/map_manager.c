@@ -11,7 +11,7 @@ char **create_map(int lines, int max_sticks)
 {
 	int sticks = 0;
 	int key = 0;
-	char **array = malloc(sizeof(*array) * lines);
+	char **array = malloc(sizeof(*array) * (lines + 1));
 
 	if (array == NULL)
 		return (NULL);
@@ -26,6 +26,7 @@ char **create_map(int lines, int max_sticks)
 		while (sticks--)
 			array[i][key++] = '|';
 	}
+	array[lines] = NULL;
 
 	return (array);
 }

@@ -23,3 +23,30 @@ Test(matchstick, wrong_args_number, .init = redirect_stdall)
 	res = matchstick_main(1, args);
 	cr_assert_eq(res, 84);
 }
+
+Test(matchstick, help_page, .init = redirect_stdall)
+{
+	int res = 0;
+	char *args[] = { "./matchstick", "-h" };
+
+	res = matchstick_main(2, args);
+	cr_assert_eq(res, 0);
+}
+
+Test(matchstick, invalid_map_format, .init = redirect_stdall)
+{
+	int res = 0;
+	char *args[] = { "./matchstick", "0", "0" };
+
+	res = matchstick_main(3, args);
+	cr_assert_eq(res, 84);
+}
+
+Test(matchstick, arg_is_not_a_number, .init = redirect_stdall)
+{
+	int res = 0;
+	char *args[] = { "./matchstick", "fraise", "framboise" };
+
+	res = matchstick_main(3, args);
+	cr_assert_eq(res, 84);
+}

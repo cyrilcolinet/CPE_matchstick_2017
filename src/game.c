@@ -7,23 +7,43 @@
 
 # include "matchstick.h"
 
+int get_random_match_line(map_t *map, int *curr_line, bool set_line)
+{
+	int max = map->lines;
+	int min = 1;
+	int random = 0;
+
+	srand(time(NULL));
+	if (set_line) {
+		random = (rand() % (max - min)) + min;
+		if (random <= 0 || random > max)
+			return (get_random_match_line(map, NULL, true));
+		return (random);
+	}
+
+	max = get_available_matches(map, *curr_line - 1);
+	if (max > 0) {
+		printf("line = %d min = %d max = %d\n", *curr_line, min, max);
+		return (((max == min) ? 1 : (rand() % (max - min)) + min));
+	} else {
+		printf("too large, line = %d\n", *curr_line);
+		*curr_line = ((*curr_line + 1 > map->lines) ? 1 : *curr_line + 1);
+		return (get_random_match_line(map, curr_line, false));
+	}
+}
+
 void game_ai_turn(map_t *map)
 {
-	int av = 0;
 	int matches = 0;
+	int line = get_random_match_line(map, NULL, true);
 
 	my_putstr("\nAI's turn...\n");
-	for (int i = 0; i < map->lines; i++) {
-		av = get_available_matches(map, i);
-		if (av > 0) {
-			srand(time(NULL));
-			matches = ((av > 1) ? (rand() % av) + 1 : 1);
-			if (matches <= map->max_matches) {
-				remove_matches(map, i + 1, matches, false);
-				break;
-			}
-		}
-	}
+	matches = get_random_match_line(map, &line, false);
+
+	while (matches > map->max_matches)
+		matches = get_random_match_line(map, &line, false);
+
+	remove_matches(map, line, matches, false);
 	display_map(map);
 	if (map_is_empty(map)) {
 		my_putstr("I lost... snif... but I'll get you next time!!\n");

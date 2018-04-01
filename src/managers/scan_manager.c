@@ -25,10 +25,10 @@ bool check_exit(map_t *map, char *line, bool status)
 
 bool lines_error(int lines, map_t *map)
 {
-	if (lines <= 0) {
+	if (lines < 0) {
 		my_putstr(ERR_POS);
 		return (true);
-	} else if (lines > map->lines) {
+	} else if (lines > map->lines || lines == 0) {
 		my_putstr(ERR_RANGE);
 		return (true);
 	}
@@ -40,6 +40,7 @@ void scan_lines(map_t *map, int *lines)
 {
 	char *line = NULL;
 
+	check_exit(map, NULL, true);
 	my_putstr("Line: ");
 	line = get_next_line(0);
 	if (check_exit(map, line, false))
@@ -54,7 +55,7 @@ void scan_lines(map_t *map, int *lines)
 
 	*lines = my_atoi(line);
 	free(line);
-	while (lines_error(*lines, map))
+	if (lines_error(*lines, map))
 		scan_lines(map, lines);
 }
 

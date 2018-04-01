@@ -18,6 +18,7 @@ TEST_DIR				= 	tests/
 
 SRC_FILES				= 	main.c 								\
 							matchstick.c 						\
+							game.c 								\
 							utils/struct_utils.c 				\
 							managers/map_manager.c
 

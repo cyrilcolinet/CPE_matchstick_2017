@@ -21,10 +21,14 @@ int display_help(char *bin)
 
 int matchstick(map_t *map)
 {
+	int exit_st = 0;
+
 	srand(time(NULL));
 	display_map(map);
+	game_player_turn(map);
+	exit_st = map->status;
 	free_all(map);
-	return (0);
+	return (exit_st);
 }
 
 int matchstick_main(int ac, char **av)

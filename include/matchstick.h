@@ -15,6 +15,8 @@
 
 # include "my.h"
 
+# define READ_SIZE 		(128)
+
 typedef struct map_t {
 	char 	**map;
 	int 	lines;
@@ -30,6 +32,7 @@ int 		matchstick_main(int ac, char **av);
 // utils/struct_utils.c
 void 		free_all(map_t *map);
 map_t 		*initialize_map(int lines, int matches);
+char 		*get_next_line(int fd);
 
 // managers/map_manager.c
 char 		**create_map(int lines, int max_sticks);

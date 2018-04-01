@@ -12,10 +12,15 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <time.h>
+# include <stdbool.h>
 
 # include "my.h"
 
-# define READ_SIZE 		(128)
+# define READ_SIZE 	(128)
+# define ERR_POS	("Error : invalid output (positive number expected)\n")
+# define ERR_RANGE 	("Error : this line is out of range\n")
+# define ERR_ENGT	("Error : not enougth matches on this line\n")
+# define ERR_REM	("Error : you have to remove at least one match\n")
 
 typedef struct map_t {
 	char 	**map;

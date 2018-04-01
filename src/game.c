@@ -5,13 +5,14 @@
 ** game functions
 */
 
-# include "matchstick.c"
+# include "matchstick.h"
 
 void game_player_turn(map_t *map)
 {
-	int lines = 0;
-	int matches = 0;
+	int lines = -1;
+	int matches = -1;
 
-	my_putstr("\nYour turn !\n");
-	
+	my_putstr("\nYour turn :\n");
+	scan_lines(map, &lines);
+	scan_matches(map, &matches, &lines);
 }

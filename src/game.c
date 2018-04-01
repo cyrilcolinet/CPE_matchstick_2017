@@ -18,8 +18,10 @@ void game_ai_turn(map_t *map)
 		if (av > 0) {
 			srand(time(NULL));
 			matches = ((av > 1) ? (rand() % av) + 1 : 1);
-			remove_matches(map, i + 1, matches, false);
-			break;
+			if (matches <= map->max_matches) {
+				remove_matches(map, i + 1, matches, false);
+				break;
+			}
 		}
 	}
 	display_map(map);
@@ -28,7 +30,6 @@ void game_ai_turn(map_t *map)
 		map->status = 1;
 		return;
 	}
-
 	game_player_turn(map);
 }
 

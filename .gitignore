@@ -60,7 +60,7 @@ dkms.conf
 
 # Own project files
 build/
-build_tests/
+tests/build/
 include/my.h
 matchstick
 units

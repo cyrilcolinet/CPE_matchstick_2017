@@ -7,7 +7,7 @@
 
 # include "matchstick.h"
 
-int get_random_match_line(map_t *map, int *curr_line, bool set_line)
+int get_random_match_line(map_t *map, int *line, bool set_line)
 {
 	int max = map->lines;
 	int min = 1;
@@ -21,12 +21,12 @@ int get_random_match_line(map_t *map, int *curr_line, bool set_line)
 		return (random);
 	}
 
-	max = get_available_matches(map, *curr_line - 1);
+	max = get_available_matches(map, *line - 1);
 	if (max > 0) {
 		return (((max == min) ? 1 : (rand() % (max - min)) + min));
 	} else {
-		*curr_line = ((*curr_line + 1 > map->lines) ? 1 : *curr_line + 1);
-		return (get_random_match_line(map, curr_line, false));
+		*line = ((*line + 1 > map->lines) ? 1 : *line + 1);
+		return (get_random_match_line(map, line, false));
 	}
 }
 

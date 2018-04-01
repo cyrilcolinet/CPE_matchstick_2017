@@ -57,7 +57,7 @@ void display_map(map_t *map)
 	}
 }
 
-bool is_empty_map(map_t *map)
+bool map_is_empty(map_t *map)
 {
 	for (int i = 0; i < map->lines; i++)
 		for (int j = 0; j < map->max_sticks; j++)

@@ -23,7 +23,6 @@ int matchstick(map_t *map)
 {
 	int exit_st = 0;
 
-	srand(time(NULL));
 	display_map(map);
 	game_player_turn(map);
 	exit_st = map->status;

@@ -1,4 +1,4 @@
-# Matchstick - Leave the last matchstick!
+# :fire: Matchstick - Leave the last matchstick!
 
 - **Binary name:** matchstick
 - **Repository name:** CPE_matchstick_2017

@@ -20,7 +20,9 @@ SRC_FILES				= 	main.c 								\
 							matchstick.c 						\
 							game.c 								\
 							utils/struct_utils.c 				\
-							managers/map_manager.c
+							utils/get_next_line.c 				\
+							managers/map_manager.c 				\
+							managers/scan_manager.c
 
 SRC						= 	$(addprefix $(SRC_DIR), $(SRC_FILES))
 

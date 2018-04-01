@@ -7,6 +7,22 @@
 
 # include "matchstick.h"
 
+bool check_exit(map_t *map, char *line, bool status)
+{
+	if (status) {
+		if (map->status == -1)
+			return (true);
+		return (false);
+	}
+
+	if (line == NULL) {
+		map->status = -1;
+		return (true);
+	}
+
+	return (false);
+}
+
 bool lines_error(int lines, map_t *map)
 {
 	if (lines <= 0) {
@@ -26,7 +42,10 @@ void scan_lines(map_t *map, int *lines)
 
 	my_putstr("Line: ");
 	line = get_next_line(0);
-	if (line == NULL || !my_str_isnum(line)) {
+	if (check_exit(map, line, false))
+		return;
+
+	if (!my_str_isnum(line)) {
 		my_putstr(ERR_POS);
 		free(line);
 		scan_lines(map, lines);
@@ -64,15 +83,18 @@ void scan_matches(map_t *map, int *matches, int *lines)
 {
 	char *line = NULL;
 
+	if (check_exit(map, NULL, true))
+		return;
 	my_putstr("Matches: ");
 	line = get_next_line(0);
-	if (line == NULL || !my_str_isnum(line)) {
+	if (check_exit(map, line, false))
+		return;
+	if (!my_str_isnum(line)) {
 		my_putstr(ERR_POS);
 		free(line);
 		scan_lines(map, lines);
 		return;
 	}
-
 	*matches = my_atoi(line);
 	free(line);
 	if (matches_error(*matches, *lines, map)) {

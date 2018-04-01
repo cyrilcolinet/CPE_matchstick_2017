@@ -15,4 +15,8 @@ void game_player_turn(map_t *map)
 	my_putstr("\nYour turn :\n");
 	scan_lines(map, &lines);
 	scan_matches(map, &matches, &lines);
+	if (map->status == -1) {
+		map->status = 0;
+		return;
+	}
 }

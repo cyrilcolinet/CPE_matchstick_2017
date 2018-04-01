@@ -77,7 +77,7 @@ tests_run:				fclean library $(UNITS)
 						./$(UNITS)
 
 $(UNITS):				$(BUILD_TESTS_DIR) $(BUILD_TESTS_OBJ)
-						$(CC) $(CFLAGS) --coverage   -o $(UNITS) $(BUILD_TESTS_OBJ) --coverage $(UNITS_LFLAGS)
+						$(CC) $(CFLAGS) --coverage   -o $(UNITS) $(BUILD_TESTS_OBJ) $(UNITS_LFLAGS)
 
 $(BUILD_TESTS_DIR):
 						mkdir -p $(BUILD_TESTS_DIR)$(TEST_DIR)

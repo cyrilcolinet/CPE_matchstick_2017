@@ -23,10 +23,8 @@ int get_random_match_line(map_t *map, int *curr_line, bool set_line)
 
 	max = get_available_matches(map, *curr_line - 1);
 	if (max > 0) {
-		printf("line = %d min = %d max = %d\n", *curr_line, min, max);
 		return (((max == min) ? 1 : (rand() % (max - min)) + min));
 	} else {
-		printf("too large, line = %d\n", *curr_line);
 		*curr_line = ((*curr_line + 1 > map->lines) ? 1 : *curr_line + 1);
 		return (get_random_match_line(map, curr_line, false));
 	}

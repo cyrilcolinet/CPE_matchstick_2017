@@ -64,3 +64,4 @@ build_tests/
 include/my.h
 matchstick
 units
+*.gc*

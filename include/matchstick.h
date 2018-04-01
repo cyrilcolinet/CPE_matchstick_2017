@@ -53,5 +53,6 @@ void 		scan_matches(map_t *map, int *matches, int *lines);
 
 // managers/matches_manager.c
 int 		get_available_matches(map_t *map, int line);
+void 		remove_matches(map_t *map, int line, int matches, bool player);
 
 # endif

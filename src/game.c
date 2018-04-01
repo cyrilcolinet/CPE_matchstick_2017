@@ -19,6 +19,6 @@ void game_player_turn(map_t *map)
 		map->status = 0;
 		return;
 	}
-	//remove_matches(map, lines, matches, true);
+	remove_matches(map, lines, matches, true);
 	display_map(map);
 }

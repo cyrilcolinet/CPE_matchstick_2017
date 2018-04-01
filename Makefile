@@ -22,7 +22,8 @@ SRC_FILES				= 	main.c 								\
 							utils/struct_utils.c 				\
 							utils/get_next_line.c 				\
 							managers/map_manager.c 				\
-							managers/scan_manager.c
+							managers/scan_manager.c 			\
+							managers/matches_manager.c
 
 SRC						= 	$(addprefix $(SRC_DIR), $(SRC_FILES))
 

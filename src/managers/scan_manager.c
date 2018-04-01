@@ -66,9 +66,9 @@ bool matches_error(int matches, int lines, map_t *map)
 	} else if (matches < 0) {
 		my_putstr(ERR_POS);
 		return (true);
-	/*} else if (matches > get_available_matches(map, lines - 1)) {
+	} else if (matches > get_available_matches(map, lines - 1)) {
 		my_putstr(ERR_ENGT);
-		return (true);*/
+		return (true);
 	} else if (matches > map->max_matches) {
 		my_putstr("Error : you cannot remove more than ");
 		my_put_nbr(map->max_matches);

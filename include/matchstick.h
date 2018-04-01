@@ -51,4 +51,7 @@ void 		scan_lines(map_t *map, int *lines);
 bool 		matches_error(int matches, int lines, map_t *map);
 void 		scan_matches(map_t *map, int *matches, int *lines);
 
+// managers/matches_manager.c
+int 		get_available_matches(map_t *map, int line);
+
 # endif

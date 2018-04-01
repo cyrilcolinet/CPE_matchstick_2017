@@ -101,7 +101,6 @@ void scan_matches(map_t *map, int *matches, int *lines)
 	*matches = my_atoi(line);
 	free(line);
 	if (matches_error(*matches, *lines, map)) {
-		printf("%s\n", "ici");
 		scan_lines(map, lines);
 		scan_matches(map, matches, lines);
 	}

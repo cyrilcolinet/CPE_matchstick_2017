@@ -40,12 +40,13 @@ void scan_lines(map_t *map, int *lines)
 {
 	char *line = NULL;
 
-	check_exit(map, NULL, true);
+	if (check_exit(map, NULL, true))
+		return;
+
 	my_putstr("Line: ");
 	line = get_next_line(0);
 	if (check_exit(map, line, false))
 		return;
-
 	if (!my_str_isnum(line)) {
 		my_putstr(ERR_POS);
 		free(line);
@@ -94,11 +95,13 @@ void scan_matches(map_t *map, int *matches, int *lines)
 		my_putstr(ERR_POS);
 		free(line);
 		scan_lines(map, lines);
+		scan_matches(map, matches, lines);
 		return;
 	}
 	*matches = my_atoi(line);
 	free(line);
 	if (matches_error(*matches, *lines, map)) {
+		printf("%s\n", "ici");
 		scan_lines(map, lines);
 		scan_matches(map, matches, lines);
 	}

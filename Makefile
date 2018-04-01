@@ -29,7 +29,7 @@ SRC						= 	$(addprefix $(SRC_DIR), $(SRC_FILES))
 
 TESTS_FILES				=	$(filter-out main.c, $(SRC_FILES))
 
-TESTS_FILES				+=	""
+TESTS_FILES				+=	matchstick_basics_tests.c
 
 INCLUDE					= 	include/
 

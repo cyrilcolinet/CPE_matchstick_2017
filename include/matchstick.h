@@ -30,34 +30,34 @@ typedef struct map_t {
 	int 	status;
 }	map_t;
 
-int 		display_help(char *bin);
-int 		matchstick(map_t *map);
-int 		matchstick_main(int ac, char **av);
+int 	display_help(char *bin);
+int 	matchstick(map_t *map);
+int 	matchstick_main(int ac, char **av);
 
 // game.c
-void 		game_ai_turn(map_t *map);
-void 		game_player_turn(map_t *map);
+void 	game_ai_turn(map_t *map);
+void 	game_player_turn(map_t *map);
 
 // utils/struct_utils.c
-void 		free_all(map_t *map);
-map_t 		*initialize_map(int lines, int matches);
-char 		*get_next_line(int fd);
+void 	free_all(map_t *map);
+map_t 	*initialize_map(int lines, int matches);
+char 	*get_next_line(int fd);
 
 // managers/map_manager.c
-char 		**create_map(int lines, int max_sticks);
-void 		display_characters(int i, int j, map_t *map);
-void 		display_map(map_t *map);
-bool 		map_is_empty(map_t *map);
+char 	**create_map(int lines, int max_sticks);
+void 	display_characters(int i, int j, map_t *map);
+void 	display_map(map_t *map);
+bool 	map_is_empty(map_t *map);
 
 // managers/scan_manager.c
-bool 		check_exit(map_t *map, char *line, bool status);
-bool 		lines_error(int lines, map_t *map);
-void 		scan_lines(map_t *map, int *lines);
-bool 		matches_error(int matches, int lines, map_t *map);
-void 		scan_matches(map_t *map, int *matches, int *lines);
+bool 	check_exit(map_t *map, char *line, bool status);
+bool 	lines_error(int lines, map_t *map);
+void 	scan_lines(map_t *map, int *lines);
+bool 	matches_error(int matches, int lines, map_t *map);
+void 	scan_matches(map_t *map, int *matches, int *lines);
 
 // managers/matches_manager.c
-int 		get_available_matches(map_t *map, int line);
-void 		remove_matches(map_t *map, int line, int matches, bool player);
+int 	get_available_matches(map_t *map, int line);
+void 	remove_matches(map_t *map, int line, int matches, bool player);
 
 # endif

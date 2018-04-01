@@ -11,19 +11,19 @@ int get_random_match_line(map_t *map, int *line, bool set_line)
 {
 	int max = map->lines;
 	int min = 1;
-	int random = 0;
+	int r = 0;
 
-	srand(time(NULL));
+	srandom(time(NULL));
 	if (set_line) {
-		random = (rand() % (max - min)) + min;
-		if (random <= 0 || random > max)
+		r = (random() % (max - min)) + min;
+		if (r <= 0 || r > max)
 			return (get_random_match_line(map, NULL, true));
-		return (random);
+		return (r);
 	}
 
 	max = get_available_matches(map, *line - 1);
 	if (max > 0) {
-		return (((max == min) ? 1 : (rand() % (max - min)) + min));
+		return (((max == min) ? 1 : (random() % (max - min)) + min));
 	} else {
 		*line = ((*line + 1 > map->lines) ? 1 : *line + 1);
 		return (get_random_match_line(map, line, false));

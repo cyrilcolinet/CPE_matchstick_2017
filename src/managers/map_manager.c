@@ -28,9 +28,6 @@ char **create_map(int lines, int max_sticks)
 	}
 	array[lines] = NULL;
 
-	for (int i = 0; array[i]; i++)
-		printf("%s\n", array[i]);
-
 	return (array);
 }
 
@@ -39,7 +36,7 @@ void display_characters(int i, int j, map_t *map)
 	char tmp = 0;
 	char display = '*';
 
-	if (j > 0 || j != map->max_sticks + 1 || i > 0 || i != map->lines + 1) {
+	if (!(!j || j == map->max_sticks + 1 || !i || i == map->lines + 1)) {
 		tmp = map->map[i - 1][j - 1];
 		display = (tmp ? tmp : ' ');
 	}

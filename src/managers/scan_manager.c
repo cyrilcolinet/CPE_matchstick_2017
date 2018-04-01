@@ -88,8 +88,7 @@ void scan_matches(map_t *map, int *matches, int *lines)
 	if (check_exit(map, NULL, true))
 		return;
 	my_putstr("Matches: ");
-	line = get_next_line(0);
-	if (check_exit(map, line, false))
+	if (check_exit(map, (line = get_next_line(0)), false))
 		return;
 	if (!my_str_isnum(line)) {
 		my_putstr(ERR_POS);

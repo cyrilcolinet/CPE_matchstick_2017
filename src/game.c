@@ -48,6 +48,7 @@ void game_ai_turn(map_t *map)
 		map->status = 1;
 		return;
 	}
+
 	game_player_turn(map);
 }
 

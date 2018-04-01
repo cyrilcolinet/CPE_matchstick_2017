@@ -244,3 +244,5 @@ Error: not enough matches on this line
 ## Authorized functions
 
 - read, write, malloc, free, time, getpid, random, srandom
+
+> :exclamation: srand and rand is not the same function of srandom and random!

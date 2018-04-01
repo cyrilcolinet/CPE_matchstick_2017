@@ -44,4 +44,10 @@ char 		**create_map(int lines, int max_sticks);
 void 		display_characters(int i, int j, map_t *map);
 void 		display_map(map_t *map);
 
+// managers/scan_manager.c
+bool 		lines_error(int lines, map_t *map);
+void 		scan_lines(map_t *map, int *lines);
+bool 		matches_error(int matches, int lines, map_t *map);
+void 		scan_matches(map_t *map, int *matches, int *lines);
+
 # endif
